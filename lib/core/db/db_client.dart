@@ -1,0 +1,3 @@
+class DbClient {
+  // Sqflite object
+}
