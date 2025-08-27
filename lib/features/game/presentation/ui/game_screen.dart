@@ -1,28 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:four_words_game/features/game/presentation/state/game_notifier.dart';
 import 'package:four_words_game/features/game/presentation/ui/keyboard_view.dart';
 import 'package:four_words_game/features/game/presentation/ui/keywords_view.dart';
-import 'package:four_words_game/features/game/presentation/ui/word_input_view.dart';
+import 'package:four_words_game/features/game/presentation/ui/word_and_last_word_view.dart';
 
-class GameScreen extends StatefulWidget {
+class GameScreen extends ConsumerStatefulWidget {
   const GameScreen({super.key});
 
   @override
-  State<GameScreen> createState() => _GameScreenState();
+  ConsumerState<GameScreen> createState() => _GameScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _GameScreenState extends ConsumerState<GameScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(gameProvider.notifier).getWordCard();
+    });
+  }
+
+  @override
+  void dispose() {
+    ref.read(gameProvider.notifier).cancelTimer();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(gameProvider);
+
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: Color.fromRGBO(253, 251, 234, 1),
+      appBar: AppBar(backgroundColor: Color.fromRGBO(253, 251, 234, 1)),
       body: SafeArea(
         child: Column(
           children: [
-            KeywordsView(keywords: ["Teacher", "Student", "Learning", "Books"]),
+            KeywordsView(keywords: state.wordCard.keywords),
             Spacer(),
-            WordInputView(word: ["S", "C", "H", "O", "O", "L"], lastWord: ["M", "A", "N", "A", "G", "E"]),
+            WordAndLastWordView(word: state.word, lastWord: state.lastWord, isWin: state.isWin),
             Spacer(),
-            KeyboardView(),
+            KeyboardView(
+              onKeyPressed: ref.read(gameProvider.notifier).updateWord,
+              onDeletePressed: ref.read(gameProvider.notifier).deleteWord,
+              onEnterPressed: ref.read(gameProvider.notifier).submitWord,
+            ),
           ],
         ),
       ),

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class KeyboardView extends StatelessWidget {
-  const KeyboardView({super.key});
+  final ValueChanged<String>? onKeyPressed;
+  final VoidCallback? onEnterPressed;
+  final VoidCallback? onDeletePressed;
+
+  const KeyboardView({super.key, this.onKeyPressed, this.onEnterPressed, this.onDeletePressed});
 
   final String firstRow = "Q,W,E,R,T,Y,U,I,O,P";
   final String secondRow = "A,S,D,F,G,H,J,K,L";
-  final String thirdRow = "Del,Z,X,C,V,B,N,M,Enter";
+  final String thirdRow = "Z,X,C,V,B,N,M";
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +19,21 @@ class KeyboardView extends StatelessWidget {
         Row(
           spacing: 4,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: firstRow.split(',').map((letter) => _KeyboardLetterView(letter)).toList(),
+          children: firstRow.split(',').map((letter) => _KeyboardLetterView(letter, onPressed: onKeyPressed)).toList(),
         ),
         Row(
           spacing: 4,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: secondRow.split(',').map((letter) => _KeyboardLetterView(letter)).toList(),
+          children: secondRow.split(',').map((letter) => _KeyboardLetterView(letter, onPressed: onKeyPressed)).toList(),
         ),
         Row(
           spacing: 4,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: thirdRow.split(',').map((letter) => _KeyboardLetterView(letter)).toList(),
+          children: [
+            _KeyboardLetterView("Del", onPressed: (_) => onDeletePressed?.call()),
+            ...thirdRow.split(',').map((letter) => _KeyboardLetterView(letter, onPressed: onKeyPressed)),
+            _KeyboardLetterView("Enter", onPressed: (_) => onEnterPressed?.call()),
+          ],
         ),
       ],
     );
@@ -34,15 +42,22 @@ class KeyboardView extends StatelessWidget {
 
 class _KeyboardLetterView extends StatelessWidget {
   final String letter;
+  final ValueChanged<String>? _onPressed;
 
-  const _KeyboardLetterView(this.letter);
+  const _KeyboardLetterView(this.letter, {ValueChanged<String>? onPressed}) : _onPressed = onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      color: Colors.grey,
-      child: Text(letter, style: Theme.of(context).textTheme.titleMedium),
+    return GestureDetector(
+      onTap: () => _onPressed?.call(letter),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color.fromRGBO(83, 70, 52, 1)),
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
+        child: Text(letter, style: Theme.of(context).textTheme.titleMedium),
+      ),
     );
   }
 }
