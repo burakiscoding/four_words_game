@@ -14,12 +14,7 @@ class GameLocalDataSourceImpl extends GameLocalDataSource {
   Future<WordCardModel> getWordCard(int id) {
     // call db
 
-    final response = WordCardModel(
-      id: 1,
-      word: "school",
-      keywords: ["Teacher", "Student", "Homework"],
-      isCompleted: false,
-    );
+    final response = WordCardModel(id: 1, word: "school", keywords: "", isCompleted: 0);
 
     return Future.value(response);
   }
