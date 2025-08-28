@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "word": "SCHOOL",
+    "keywords": ["Teacher", "Student", "Homework"]
+  },
+  {
+    "id": 2,
+    "word": "HOME",
+    "keywords": ["House", "Family", "Comfort"]
+  },
+  {
+    "id": 3,
+    "word": "OCEAN",
+    "keywords": ["Water", "Wave", "Beach"]
+  }
+]

@@ -80,7 +80,5 @@ class GameNotifier extends StateNotifier<GameState> {
 }
 
 final gameProvider = StateNotifierProvider<GameNotifier, GameState>((ref) {
-  final gameHelper = ref.watch(gameHelperProvider);
-
-  return GameNotifier(gameHelper: gameHelper);
+  return GameNotifier(gameHelper: ref.watch(gameHelperProvider));
 });

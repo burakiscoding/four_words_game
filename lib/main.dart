@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:four_words_game/core/db/db_seed_service.dart';
 import 'package:four_words_game/features/game/presentation/ui/game_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(ProviderScope(child: const MyApp()));
+  final container = ProviderContainer();
+  await container.read(dbSeedServiceProvider).insertWordCards();
+
+  runApp(UncontrolledProviderScope(container: container, child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
