@@ -2,6 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:four_words_game/features/game/presentation/models/letter.dart';
 
 class GameHelper {
+  final List<String> attempts = [];
+  final int maxAttempt = 10;
+
+  void addAttempt(String word) {
+    attempts.add(word);
+  }
+
   Word createEmptyWord(int n) {
     return List.filled(n, Letter.empty());
   }
