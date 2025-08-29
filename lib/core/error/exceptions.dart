@@ -11,6 +11,10 @@ abstract class AppException implements Exception {
   }
 }
 
+class WordNotFoundException extends AppException {
+  WordNotFoundException({super.message = 'Word not found in db'}) : super(prefix: 'Word Not Found Error: ');
+}
+
 // Network related exceptions
 class NetworkException extends AppException {
   NetworkException({super.message = 'No internet connection'}) : super(prefix: 'Network Error: ');

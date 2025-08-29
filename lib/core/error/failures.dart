@@ -10,6 +10,14 @@ abstract class Failure extends Equatable {
   List<Object?> get props => [message, statusCode];
 }
 
+class UnknownFailure extends Failure {
+  const UnknownFailure({super.message = 'Unknown error occurred', super.statusCode});
+}
+
+class WordNotFoundFailure extends Failure {
+  const WordNotFoundFailure({super.message = 'Word not found in db', super.statusCode});
+}
+
 // Network failures
 class NetworkFailure extends Failure {
   const NetworkFailure({super.message = 'No internet connection', super.statusCode});

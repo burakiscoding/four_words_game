@@ -4,7 +4,7 @@ class WordCardEntity {
   final List<String> keywords;
   final bool isCompleted;
 
-  WordCardEntity({required this.id, required this.word, required this.keywords, required this.isCompleted});
+  const WordCardEntity({required this.id, required this.word, required this.keywords, required this.isCompleted});
 
   const WordCardEntity.initial({this.id = 0, this.word = '', this.keywords = const [], this.isCompleted = false});
 

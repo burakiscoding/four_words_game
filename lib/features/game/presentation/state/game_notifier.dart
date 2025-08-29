@@ -1,14 +1,28 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:four_words_game/features/game/domain/entities/word_card_entity.dart';
+import 'package:four_words_game/features/game/domain/usecases/get_next_word_use_case.dart';
+import 'package:four_words_game/features/game/domain/usecases/set_word_completed_use_case.dart';
 import 'package:four_words_game/features/game/presentation/helpers/game_helper.dart';
 import 'package:four_words_game/features/game/presentation/state/game_state.dart';
+import 'package:four_words_game/features/history/domain/usecases/insert_history_use_case.dart';
 
 class GameNotifier extends StateNotifier<GameState> {
   final GameHelper _gameHelper;
+  final GetNextWordUseCase _getNextWordUseCase;
+  final SetWordCompletedUseCase _setWordCompletedUseCase;
+  final InsertHistoryUseCase _insertHistoryUseCase;
 
-  GameNotifier({required GameHelper gameHelper}) : _gameHelper = gameHelper, super(const GameState.initial());
+  GameNotifier({
+    required GameHelper gameHelper,
+    required GetNextWordUseCase getNextWordUseCase,
+    required SetWordCompletedUseCase setWordCompletedUseCase,
+    required InsertHistoryUseCase insertHistoryUseCase,
+  }) : _gameHelper = gameHelper,
+       _getNextWordUseCase = getNextWordUseCase,
+       _setWordCompletedUseCase = setWordCompletedUseCase,
+       _insertHistoryUseCase = insertHistoryUseCase,
+       super(const GameState.initial());
 
   Timer? _timer;
 
@@ -28,11 +42,23 @@ class GameNotifier extends StateNotifier<GameState> {
   }
 
   Future<void> getWordCard() async {
-    final wordCard = WordCardEntity.example();
-    final word = _gameHelper.createEmptyWordString(wordCard.word.length);
-    final lastWord = _gameHelper.createEmptyWord(wordCard.word.length);
+    // Handle loading if it takes long time
 
-    state = state.copyWith(wordCard: wordCard, word: word, lastWord: lastWord, isWin: false, remainingSeconds: 5);
+    final result = await _getNextWordUseCase.execute();
+
+    result.fold(
+      (failure) {
+        // Handle failure
+        print(failure.toString());
+      },
+      (wordCard) {
+        print(wordCard.toString());
+        final word = _gameHelper.createEmptyWordString(wordCard.word.length);
+        final lastWord = _gameHelper.createEmptyWord(wordCard.word.length);
+
+        state = state.copyWith(wordCard: wordCard, word: word, lastWord: lastWord, isWin: false, remainingSeconds: 5);
+      },
+    );
   }
 
   void updateWord(String s) {
@@ -55,7 +81,7 @@ class GameNotifier extends StateNotifier<GameState> {
     }
   }
 
-  void submitWord() {
+  void submitWord() async {
     // Check if user won
     if (_gameHelper.isWordStringCorrect(state.word, state.wordCard.word)) {
       final lastWord = _gameHelper.createCorrectWord(state.wordCard.word);
@@ -64,12 +90,18 @@ class GameNotifier extends StateNotifier<GameState> {
 
       // _startTimer();
 
+      await _setWordCompletedUseCase.execute(state.wordCard.id);
+      _insertHistoryUseCase.execute(state.wordCard.id, _gameHelper.attempts);
+
       return;
     }
 
     var secretWord = state.wordCard.word.split('');
     var word = state.word;
     var lastWord = _gameHelper.createWordFromWordString(word);
+
+    // Add attempt
+    _gameHelper.addAttempt(word.join(''));
 
     // Check positions
     lastWord = _gameHelper.checkPositions(word, lastWord, secretWord);
@@ -80,5 +112,10 @@ class GameNotifier extends StateNotifier<GameState> {
 }
 
 final gameProvider = StateNotifierProvider<GameNotifier, GameState>((ref) {
-  return GameNotifier(gameHelper: ref.watch(gameHelperProvider));
+  return GameNotifier(
+    gameHelper: ref.watch(gameHelperProvider),
+    getNextWordUseCase: ref.watch(getNextWordUseCaseProvider),
+    setWordCompletedUseCase: ref.watch(setWordCompletedProvider),
+    insertHistoryUseCase: ref.watch(insertHistoryUseCaseProvider),
+  );
 });

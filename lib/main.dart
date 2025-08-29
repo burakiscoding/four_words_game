@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:four_words_game/core/db/db_seed_service.dart';
+import 'package:four_words_game/features/game/presentation/ui/end_of_game_view.dart';
 import 'package:four_words_game/features/game/presentation/ui/game_screen.dart';
+import 'package:four_words_game/features/history/presentation/ui/history_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

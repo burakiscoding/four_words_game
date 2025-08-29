@@ -10,6 +10,15 @@ class WordCardModel {
 
   WordCardModel({required this.id, required this.word, required this.keywords, required this.isCompleted});
 
+  factory WordCardModel.fromMap(Map<String, dynamic> map) {
+    return WordCardModel(
+      id: map['id'] as int,
+      word: map['word'] as String,
+      keywords: map['keywords'] as String,
+      isCompleted: map['isCompleted'] as int,
+    );
+  }
+
   Map<String, Object?> toMap() {
     return {'id': id, 'word': word, 'keywords': keywords, 'isCompleted': isCompleted};
   }
@@ -25,7 +34,7 @@ extension WordCardModelX on WordCardModel {
     return WordCardEntity(
       id: id,
       word: word,
-      keywords: jsonDecode(keywords) as List<String>,
+      keywords: List<String>.from(jsonDecode(keywords) as List<dynamic>),
       isCompleted: isCompleted == 1,
     );
   }
