@@ -49,10 +49,8 @@ class GameNotifier extends StateNotifier<GameState> {
     result.fold(
       (failure) {
         // Handle failure
-        print(failure.toString());
       },
       (wordCard) {
-        print(wordCard.toString());
         final word = _gameHelper.createEmptyWordString(wordCard.word.length);
         final lastWord = _gameHelper.createEmptyWord(wordCard.word.length);
 
