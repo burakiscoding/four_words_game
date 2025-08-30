@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:four_words_game/features/game/presentation/state/game_notifier.dart';
+import 'package:four_words_game/features/game/presentation/ui/end_of_game_screen.dart';
 import 'package:four_words_game/features/game/presentation/ui/keyboard_view.dart';
 import 'package:four_words_game/features/game/presentation/ui/keywords_view.dart';
 import 'package:four_words_game/features/game/presentation/ui/word_and_last_word_view.dart';
@@ -32,6 +33,14 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(gameProvider);
 
+    if (state.isWordsOver) {
+      return EndOfGameScreen();
+    }
+
+    if (state.errorMessage != null) {
+      return Center(child: Text(state.errorMessage!));
+    }
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(253, 251, 234, 1),
       appBar: AppBar(backgroundColor: Color.fromRGBO(253, 251, 234, 1)),
@@ -40,7 +49,12 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           children: [
             KeywordsView(keywords: state.wordCard.keywords),
             Spacer(),
-            WordAndLastWordView(word: state.word, lastWord: state.lastWord, isWin: state.isWin),
+            WordAndLastWordView(
+              word: state.word,
+              lastWord: state.lastWord,
+              isWin: state.isWin,
+              remainingSeconds: state.remainingSeconds,
+            ),
             Spacer(),
             KeyboardView(
               onKeyPressed: ref.read(gameProvider.notifier).updateWord,

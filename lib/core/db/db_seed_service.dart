@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:four_words_game/core/db/db_client.dart';
@@ -21,19 +20,28 @@ class DbSeedService {
     final db = await _dbClient.db;
 
     final wordCards = await _loadWordCardsJson();
-    final response = await db.query('word_cards');
+    final result = await db.query('word_cards');
 
     // Database is already seeded and Json file isn't changed
-    if (response.length == wordCards.length) {
+    if (result.length == wordCards.length) {
       return;
     }
 
-    await db.delete('word_cards');
-    for (final w in wordCards) {
-      await db.insert('word_cards', w.toModel().toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    // First time inserting words or the user cleared db
+    if (result.isEmpty) {
+      for (final w in wordCards) {
+        await db.insert('word_cards', w.toModel().toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+      }
+      return;
     }
 
-    log('db updated');
+    final lastWordId = result.last['id'] as int;
+    for (final w in wordCards) {
+      // Only new words will be inserted
+      if (w.id > lastWordId) {
+        await db.insert('word_cards', w.toModel().toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+      }
+    }
   }
 }
 

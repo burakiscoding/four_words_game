@@ -2,11 +2,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:four_words_game/features/game/presentation/models/letter.dart';
 
 class GameHelper {
-  final List<String> attempts = [];
+  final List<String> _attempts = [];
+  List<String> get attempts => _attempts;
   final int maxAttempt = 10;
 
   void addAttempt(String word) {
-    attempts.add(word);
+    _attempts.add(word);
+  }
+
+  void clearAttempts() {
+    _attempts.clear();
   }
 
   Word createEmptyWord(int n) {
@@ -67,6 +72,10 @@ class GameHelper {
     (lastWord, secretWord) = _checkCorrectPositions(word, lastWord, secretWord);
     lastWord = _checkWrongPositions(word, lastWord, secretWord);
     return lastWord;
+  }
+
+  bool canSubmit(WordString word) {
+    return word.every((e) => e.isNotEmpty);
   }
 }
 

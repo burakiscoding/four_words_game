@@ -6,8 +6,15 @@ class WordAndLastWordView extends StatelessWidget {
   final WordString word;
   final Word lastWord;
   final bool isWin;
+  final int remainingSeconds;
 
-  const WordAndLastWordView({super.key, required this.word, required this.lastWord, required this.isWin});
+  const WordAndLastWordView({
+    super.key,
+    required this.word,
+    required this.lastWord,
+    required this.isWin,
+    required this.remainingSeconds,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,7 @@ class WordAndLastWordView extends StatelessWidget {
       children: [
         SizedBox(height: 50, child: _LastWordText(lastWord)),
         const SizedBox(height: 24),
-        SizedBox(height: 60, child: _WordText(word, isWin)),
+        SizedBox(height: 60, child: _WordText(word, isWin, remainingSeconds)),
       ],
     );
   }
@@ -30,15 +37,7 @@ class _LastWordText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Animate(
       key: ValueKey<String>(word.map((e) => e.value).join('')),
-      effects: [
-        // SlideEffect(
-        //   begin: Offset(0, 0.9),
-        //   end: Offset(0, 0),
-        //   curve: Curves.easeOut,
-        //   duration: Duration(milliseconds: 500),
-        // ),
-        FadeEffect(duration: const Duration(milliseconds: 200)),
-      ],
+      effects: [FadeEffect(duration: const Duration(milliseconds: 200))],
       child: Row(
         spacing: 16,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -51,8 +50,9 @@ class _LastWordText extends StatelessWidget {
 class _WordText extends StatelessWidget {
   final WordString word;
   final bool isWin;
+  final int remaniningSeconds;
 
-  const _WordText(this.word, this.isWin);
+  const _WordText(this.word, this.isWin, this.remaniningSeconds);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _WordText extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          Text("Next word in 3", style: Theme.of(context).textTheme.titleSmall),
+          Text("Next word in $remaniningSeconds", style: Theme.of(context).textTheme.titleSmall),
         ],
       );
     } else {
