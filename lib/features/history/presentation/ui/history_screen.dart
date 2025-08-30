@@ -24,59 +24,47 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
     final state = ref.watch(historyProvider);
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(253, 251, 234, 1),
-      appBar: AppBar(title: Text("History"), backgroundColor: Color.fromRGBO(253, 251, 234, 1)),
+      backgroundColor: Color(0xFFFFF2EB),
+      appBar: AppBar(
+        title: Text(
+          "History",
+          style: TextStyle(fontFamily: 'PermanentMarker', fontWeight: FontWeight.w700),
+        ),
+        backgroundColor: Color(0xFFFFF2EB),
+      ),
       body: ListView.builder(
         itemCount: state.history.length,
         itemBuilder: (context, index) {
           final item = state.history[index];
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+          return ListTile(
+            leading: CircleAvatar(backgroundColor: Color(0xffFFD6BA), child: Text(item.id.toString())),
+            title: Text(item.word),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Word: "),
-                    Text(item.word, style: Theme.of(context).textTheme.titleMedium),
-                  ],
+                Text(item.keywords.join(',')),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      ...item.attempts.map(
+                        (e) => TextSpan(
+                          text: "$e, ",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      TextSpan(
+                        text: item.word,
+                        style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Keywords: "),
-                    Text(item.keywords.join(','), style: Theme.of(context).textTheme.titleSmall),
-                  ],
-                ),
-
-                _AttemptsView(item.attempts),
               ],
             ),
           );
         },
       ),
-    );
-  }
-}
-
-class _AttemptsView extends StatelessWidget {
-  final List<String> attempts;
-
-  const _AttemptsView(this.attempts);
-
-  @override
-  Widget build(BuildContext context) {
-    if (attempts.isEmpty) {
-      return Text("You won on your first try.", style: Theme.of(context).textTheme.titleMedium);
-    }
-
-    return Column(
-      children: [
-        Text("Attempts before winning:"),
-        Wrap(children: attempts.map((e) => Text("$e, ")).toList()),
-      ],
     );
   }
 }
