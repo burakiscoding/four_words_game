@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:four_words_game/core/error/failures.dart';
 import 'package:four_words_game/features/game/domain/usecases/get_next_word_use_case.dart';
 import 'package:four_words_game/features/game/domain/usecases/set_word_completed_use_case.dart';
 import 'package:four_words_game/features/game/presentation/helpers/game_helper.dart';
@@ -42,19 +43,29 @@ class GameNotifier extends StateNotifier<GameState> {
   }
 
   Future<void> getWordCard() async {
-    // Handle loading if it takes long time
-
     final result = await _getNextWordUseCase.execute();
 
     result.fold(
       (failure) {
         // Handle failure
+        if (failure is WordNotFoundFailure) {
+          state = state.copyWith(isWordsOver: true);
+        } else {
+          state = state.copyWith(errorMessage: failure.message);
+        }
       },
       (wordCard) {
         final word = _gameHelper.createEmptyWordString(wordCard.word.length);
         final lastWord = _gameHelper.createEmptyWord(wordCard.word.length);
 
-        state = state.copyWith(wordCard: wordCard, word: word, lastWord: lastWord, isWin: false, remainingSeconds: 5);
+        state = state.copyWith(
+          wordCard: wordCard,
+          word: word,
+          lastWord: lastWord,
+          isWin: false,
+          remainingSeconds: 5,
+          errorMessage: null,
+        );
       },
     );
   }
@@ -80,16 +91,21 @@ class GameNotifier extends StateNotifier<GameState> {
   }
 
   void submitWord() async {
+    if (!_gameHelper.canSubmit(state.word)) {
+      return;
+    }
     // Check if user won
     if (_gameHelper.isWordStringCorrect(state.word, state.wordCard.word)) {
       final lastWord = _gameHelper.createCorrectWord(state.wordCard.word);
       final emptyWord = _gameHelper.createEmptyWordString(state.wordCard.word.length);
       state = state.copyWith(word: emptyWord, lastWord: lastWord, index: 0, isWin: true);
 
-      // _startTimer();
+      // 5 seconds before the next word
+      _startTimer();
 
       await _setWordCompletedUseCase.execute(state.wordCard.id);
-      _insertHistoryUseCase.execute(state.wordCard.id, _gameHelper.attempts);
+      await _insertHistoryUseCase.execute(state.wordCard.id, _gameHelper.attempts);
+      _gameHelper.clearAttempts();
 
       return;
     }
@@ -104,6 +120,7 @@ class GameNotifier extends StateNotifier<GameState> {
     // Check positions
     lastWord = _gameHelper.checkPositions(word, lastWord, secretWord);
 
+    // Reset word and update last word
     final emptyWord = _gameHelper.createEmptyWordString(state.wordCard.word.length);
     state = state.copyWith(word: emptyWord, lastWord: lastWord, index: 0);
   }

@@ -22,10 +22,12 @@ class EndOfGameScreen extends StatelessWidget {
                 Text("Congratulations!", style: Theme.of(context).textTheme.displaySmall),
                 Text("You've completed all the words.", style: Theme.of(context).textTheme.titleLarge),
                 Text("Thank you so much for playing <3", style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 16),
+                ElevatedButton(onPressed: () {}, child: Text('Back to Menu')),
               ],
             ),
           ),
-          HeartParticles(),
+          IgnorePointer(child: HeartParticles()),
         ],
       ),
     );
