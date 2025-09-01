@@ -29,6 +29,15 @@ class GameNotifier extends StateNotifier<GameState> {
 
   void cancelTimer() {
     _timer?.cancel();
+    _timer = null;
+    print("timer cancelled");
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    print("game notifier disposed");
+    super.dispose();
   }
 
   void _startTimer() {
@@ -126,7 +135,7 @@ class GameNotifier extends StateNotifier<GameState> {
   }
 }
 
-final gameProvider = StateNotifierProvider<GameNotifier, GameState>((ref) {
+final gameProvider = StateNotifierProvider.autoDispose<GameNotifier, GameState>((ref) {
   return GameNotifier(
     gameHelper: ref.watch(gameHelperProvider),
     getNextWordUseCase: ref.watch(getNextWordUseCaseProvider),

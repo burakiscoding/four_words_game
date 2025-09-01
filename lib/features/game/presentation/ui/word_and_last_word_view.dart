@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:four_words_game/core/extensions/context_x.dart';
+import 'package:four_words_game/core/theme/app_themes.dart';
 import 'package:four_words_game/features/game/presentation/models/letter.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -61,14 +63,10 @@ class _WordText extends StatelessWidget {
         children: [
           Text(
             "You Won!",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Color.fromRGBO(83, 70, 52, 1),
-              fontWeight: FontWeight.bold,
-              letterSpacing: 2,
-            ),
+            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, letterSpacing: 2),
             textAlign: TextAlign.center,
           ),
-          Text("Next word in $remaniningSeconds", style: Theme.of(context).textTheme.titleSmall),
+          Text("Next word in $remaniningSeconds", style: context.textTheme.titleSmall),
         ],
       );
     } else {
@@ -96,9 +94,7 @@ class _WordChar extends StatelessWidget {
       width: 25,
       child: Text(
         letter,
-        style: Theme.of(
-          context,
-        ).textTheme.titleLarge?.copyWith(color: Color.fromRGBO(83, 70, 52, 1), fontWeight: FontWeight.bold),
+        style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         textAlign: TextAlign.center,
       ),
     );
@@ -110,16 +106,16 @@ class _LastWordChar extends StatelessWidget {
 
   const _LastWordChar(this.letter);
 
-  Color _colorForState(LetterState state) {
+  Color _colorForState(LetterState state, BuildContext context) {
     switch (state) {
       case LetterState.posCorrect:
-        return Colors.green;
+        return context.gameColors.posCorrectColor;
       case LetterState.posWrong:
-        return Colors.orange;
+        return context.gameColors.posWrongColor;
       case LetterState.notInWord:
-        return Color.fromRGBO(83, 70, 52, 1);
+        return context.gameColors.notInWordColor;
       case LetterState.none:
-        return Color.fromRGBO(83, 70, 52, 1);
+        return context.gameColors.notInWordColor;
     }
   }
 
@@ -133,9 +129,10 @@ class _LastWordChar extends StatelessWidget {
       width: 25,
       child: Text(
         letter.value,
-        style: Theme.of(
-          context,
-        ).textTheme.titleLarge?.copyWith(color: _colorForState(letter.state), fontWeight: FontWeight.bold),
+        style: context.textTheme.titleLarge?.copyWith(
+          color: _colorForState(letter.state, context),
+          fontWeight: FontWeight.bold,
+        ),
         textAlign: TextAlign.center,
       ),
     );
@@ -151,7 +148,7 @@ class _Line extends StatelessWidget {
       width: 25,
       height: 5,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(83, 70, 52, 1),
+        color: context.colorScheme.onPrimary,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
     );

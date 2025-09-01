@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:four_words_game/core/extensions/context_x.dart';
 
 class KeyboardView extends StatelessWidget {
   final ValueChanged<String>? onKeyPressed;
@@ -53,10 +54,10 @@ class _KeyboardLetterView extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          border: Border.all(color: Color.fromRGBO(83, 70, 52, 1)),
+          border: Border.all(color: context.colorScheme.onPrimary),
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
-        child: Text(letter, style: Theme.of(context).textTheme.titleMedium),
+        child: Text(letter, style: context.textTheme.titleMedium),
       ),
     );
   }

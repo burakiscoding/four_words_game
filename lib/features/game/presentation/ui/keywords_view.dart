@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:four_words_game/core/extensions/context_x.dart';
+import 'package:four_words_game/core/theme/app_themes.dart';
 
 class KeywordsView extends StatelessWidget {
   final List<String> keywords;
@@ -25,11 +27,11 @@ class _KeywordCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(83, 70, 52, 1)),
+        border: Border.all(color: context.colorScheme.onPrimary),
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       padding: const EdgeInsets.all(16),
-      child: Text(keyword, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center),
+      child: Text(keyword, style: context.textTheme.titleMedium, textAlign: TextAlign.center),
     );
   }
 }

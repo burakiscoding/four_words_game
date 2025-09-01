@@ -24,17 +24,11 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   }
 
   @override
-  void dispose() {
-    ref.read(gameProvider.notifier).cancelTimer();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final state = ref.watch(gameProvider);
 
     if (state.isWordsOver) {
-      return EndOfGameScreen();
+      return EndOfGameScreen(onPop: _pop);
     }
 
     if (state.errorMessage != null) {
@@ -42,11 +36,11 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(253, 251, 234, 1),
-      appBar: AppBar(backgroundColor: Color.fromRGBO(253, 251, 234, 1)),
+      appBar: AppBar(title: Text('Three Words Game')),
       body: SafeArea(
         child: Column(
           children: [
+            const SizedBox(height: 16),
             KeywordsView(keywords: state.wordCard.keywords),
             Spacer(),
             WordAndLastWordView(
@@ -65,5 +59,9 @@ class _GameScreenState extends ConsumerState<GameScreen> {
         ),
       ),
     );
+  }
+
+  void _pop() {
+    Navigator.of(context).pop();
   }
 }
