@@ -7,6 +7,7 @@ abstract class GameLocalDataSource {
   Future<WordCardModel> getNextWord();
   Future<void> setWordCompleted(int id);
   Future<List<WordCardModel>> getCompletedWords();
+  Future<int> resetWordCards();
 }
 
 class GameLocalDataSourceImpl extends GameLocalDataSource {
@@ -43,6 +44,12 @@ class GameLocalDataSourceImpl extends GameLocalDataSource {
     }
 
     return response.map((e) => WordCardModel.fromMap(e)).toList();
+  }
+
+  @override
+  Future<int> resetWordCards() async {
+    final db = await _dbClient.db;
+    return await db.update('word_cards', {'isCompleted': 0});
   }
 }
 

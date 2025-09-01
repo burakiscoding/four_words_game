@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:four_words_game/core/extensions/context_x.dart';
-import 'package:four_words_game/features/history/presentation/ui/heart_particles.dart';
+import 'package:four_words_game/core/ui/heart_particles.dart';
 
 class EndOfGameScreen extends StatelessWidget {
   final VoidCallback onPop;

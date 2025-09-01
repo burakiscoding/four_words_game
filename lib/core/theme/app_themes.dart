@@ -25,6 +25,16 @@ class AppThemes {
     fontFamily: 'Nunito',
     extensions: <ThemeExtension<dynamic>>[_gameColors],
     cardColor: AppColors.grey,
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.beige,
+      contentTextStyle: TextStyle(fontSize: 16, color: AppColors.black, fontFamily: 'Nunito'),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: AppColors.black,
+        textStyle: TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.lightOrange,
@@ -72,6 +82,16 @@ class AppThemes {
     scaffoldBackgroundColor: AppColors.beige,
     fontFamily: 'Nunito',
     extensions: <ThemeExtension<dynamic>>[_gameColors],
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.beige,
+      contentTextStyle: TextStyle(fontSize: 16, color: AppColors.black, fontFamily: 'Nunito'),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: AppColors.black,
+        textStyle: TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.lightOrange,
