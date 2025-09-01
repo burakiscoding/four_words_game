@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:four_words_game/features/game/presentation/ui/game_screen.dart';
 import 'package:four_words_game/features/history/presentation/ui/history_screen.dart';
+import 'package:four_words_game/features/how_to_play/presentation/ui/how_to_play_screen.dart';
 import 'package:four_words_game/features/menu/presentation/ui/menu_button.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -56,5 +57,7 @@ class _MenuScreenState extends State<MenuScreen> {
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HistoryScreen()));
   }
 
-  void _pushHowToPlayScreen() {}
+  void _pushHowToPlayScreen() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HowToPlayScreen()));
+  }
 }

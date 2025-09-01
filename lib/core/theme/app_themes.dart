@@ -7,6 +7,7 @@ class AppColors {
   static const Color beige = Color(0xFFFFF2EB);
   static const Color green = Colors.green;
   static const Color orange = Colors.orange;
+  static const Color grey = Color(0xFFe1e5e8);
 }
 
 class AppThemes {
@@ -23,6 +24,7 @@ class AppThemes {
     scaffoldBackgroundColor: AppColors.beige,
     fontFamily: 'Nunito',
     extensions: <ThemeExtension<dynamic>>[_gameColors],
+    cardColor: AppColors.grey,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.lightOrange,
