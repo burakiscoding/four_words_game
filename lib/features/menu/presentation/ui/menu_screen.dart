@@ -14,8 +14,6 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xFFFFF2E0),
-      backgroundColor: Color(0xFFFFF2EB),
       body: SafeArea(
         child: Center(
           child: Column(
