@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:four_words_game/core/extensions/context_x.dart';
-import 'package:four_words_game/core/theme/app_themes.dart';
 
 class KeywordsView extends StatelessWidget {
   final List<String> keywords;

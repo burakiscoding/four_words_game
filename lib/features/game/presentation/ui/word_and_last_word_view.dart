@@ -22,7 +22,7 @@ class WordAndLastWordView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 50, child: _LastWordText(lastWord)),
+        SizedBox(height: 50, child: LastWordText(lastWord)),
         const SizedBox(height: 24),
         SizedBox(height: 60, child: _WordText(word, isWin, remainingSeconds)),
       ],
@@ -30,10 +30,10 @@ class WordAndLastWordView extends StatelessWidget {
   }
 }
 
-class _LastWordText extends StatelessWidget {
+class LastWordText extends StatelessWidget {
   final Word word;
 
-  const _LastWordText(this.word);
+  const LastWordText(this.word, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _LastWordText extends StatelessWidget {
       child: Row(
         spacing: 16,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: word.map((letter) => _LastWordChar(letter)).toList(),
+        children: word.map((letter) => LastWordChar(letter)).toList(),
       ),
     );
   }
@@ -101,10 +101,10 @@ class _WordChar extends StatelessWidget {
   }
 }
 
-class _LastWordChar extends StatelessWidget {
+class LastWordChar extends StatelessWidget {
   final Letter letter;
 
-  const _LastWordChar(this.letter);
+  const LastWordChar(this.letter, {super.key});
 
   Color _colorForState(LetterState state, BuildContext context) {
     switch (state) {
