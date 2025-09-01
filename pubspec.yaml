@@ -68,6 +68,7 @@ flutter:
   assets:
     - assets/data/word_cards.json
     - assets/svg/super_thank_you.svg
+    - assets/svg/no_data.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

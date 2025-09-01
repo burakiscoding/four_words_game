@@ -31,6 +31,16 @@ class HistoryRepositoryImpl extends HistoryRepository {
       return await _localDataSource.insertHistory(history);
     } catch (_) {}
   }
+
+  @override
+  Future<Either<Failure, int>> clearHistory() async {
+    try {
+      final result = await _localDataSource.clearHistory();
+      return Right(result);
+    } catch (_) {
+      return Left(const UnknownFailure());
+    }
+  }
 }
 
 final historyRepositoryProvider = Provider<HistoryRepository>((ref) {

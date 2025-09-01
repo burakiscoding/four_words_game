@@ -42,6 +42,16 @@ class GameRepositoryImpl extends GameRepository {
       await _localDataSource.setWordCompleted(id);
     } catch (_) {}
   }
+
+  @override
+  Future<Either<Failure, int>> resetWordCards() async {
+    try {
+      final result = await _localDataSource.resetWordCards();
+      return Right(result);
+    } catch (_) {
+      return Left(const UnknownFailure());
+    }
+  }
 }
 
 final gameRepositoryProvider = Provider<GameRepository>((ref) {

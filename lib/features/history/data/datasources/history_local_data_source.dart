@@ -6,6 +6,7 @@ import 'package:four_words_game/features/history/data/models/history_word_model.
 abstract class HistoryLocalDataSource {
   Future<List<HistoryWordModel>> getHistory();
   Future<void> insertHistory(HistoryModel history);
+  Future<int> clearHistory();
 }
 
 class HistoryLocalDataSourceImpl extends HistoryLocalDataSource {
@@ -31,6 +32,12 @@ class HistoryLocalDataSourceImpl extends HistoryLocalDataSource {
     final db = await _dbClient.db;
 
     await db.insert('history', history.toMap());
+  }
+
+  @override
+  Future<int> clearHistory() async {
+    final db = await _dbClient.db;
+    return await db.delete('history');
   }
 }
 
