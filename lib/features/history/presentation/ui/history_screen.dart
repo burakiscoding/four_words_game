@@ -134,7 +134,7 @@ class _ListView extends StatelessWidget {
         final item = state.history[index];
 
         return ListTile(
-          leading: CircleAvatar(child: Text(item.id.toString())),
+          leading: CircleAvatar(child: Text("${index + 1}")),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

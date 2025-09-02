@@ -38,10 +38,7 @@ class _HowToPlayScreenState extends State<HowToPlayScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("How To Play"),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.delete))],
-      ),
+      appBar: AppBar(title: Text("How To Play")),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: SingleChildScrollView(
