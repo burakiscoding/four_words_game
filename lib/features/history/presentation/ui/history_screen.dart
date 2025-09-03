@@ -17,10 +17,6 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(historyProvider.notifier).getHistory();
-    });
   }
 
   @override
@@ -29,14 +25,14 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("History"),
-        actions: [IconButton(onPressed: _clearHistory, icon: Icon(Icons.delete))],
+        title: const Text("History"),
+        actions: [IconButton(onPressed: _clearProgress, icon: const Icon(Icons.delete))],
       ),
-      body: state.history.isNotEmpty ? _ListView(state: state) : _EmptyView(),
+      body: state.history.isNotEmpty ? _ListView(state: state) : const _EmptyView(),
     );
   }
 
-  Future<void> _clearHistory() async {
+  Future<void> _clearProgress() async {
     final result1 = await _dialogBuilder1();
     if (result1 != true) {
       return;
@@ -47,7 +43,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       return;
     }
 
-    await ref.read(historyProvider.notifier).clearHistory();
+    await ref.read(historyProvider.notifier).clearProgress();
   }
 
   // First dialog to warn
@@ -56,8 +52,8 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("⚠️ Delete Progress?"),
-          content: Text(
+          title: const Text("⚠️ Delete Progress?"),
+          content: const Text(
             "Are you sure you want to delete your game progress? This action cannot be undone and all your current achievements will be lost",
           ),
           actions: [
@@ -81,8 +77,8 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("⚠️ Confirm Deletion"),
-          content: Text(
+          title: const Text("⚠️ Confirm Deletion"),
+          content: const Text(
             "This is your last chance. All your game progress will be permanently deleted and cannot be restored. Do you still want to continue?",
           ),
           actions: [
@@ -109,7 +105,7 @@ class _EmptyView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 64),
+        const SizedBox(height: 64),
         SvgPicture.asset("assets/svg/no_data.svg", height: MediaQuery.of(context).size.height * 0.3),
         const SizedBox(height: 24),
         Row(

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Four Words Game',
+      title: 'Three Words Game',
       theme: AppThemes.light,
       darkTheme: AppThemes.dark,
       home: const MenuScreen(),

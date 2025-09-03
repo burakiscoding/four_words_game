@@ -11,7 +11,7 @@ class WordCardEntity {
   const WordCardEntity.example({
     this.id = 1,
     this.word = 'SCHOOL',
-    this.keywords = const ["Teacher", "Student", "Homework"],
+    this.keywords = const ["Teacher", "Student", "Homework Long Version"],
     this.isCompleted = false,
   });
 

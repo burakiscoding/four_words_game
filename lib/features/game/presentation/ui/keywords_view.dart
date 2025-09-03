@@ -27,9 +27,9 @@ class _KeywordCardView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: context.colorScheme.onPrimary),
-        borderRadius: BorderRadius.all(Radius.circular(4)),
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
       child: Text(keyword, style: context.textTheme.titleMedium, textAlign: TextAlign.center),
     );
   }

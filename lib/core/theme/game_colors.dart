@@ -6,6 +6,7 @@ class GameColors extends ThemeExtension<GameColors> {
   final Color notInWordColor;
 
   const GameColors({required this.posCorrectColor, required this.posWrongColor, required this.notInWordColor});
+
   @override
   ThemeExtension<GameColors> copyWith({Color? posCorrectColor, Color? posWrongColor, Color? notInWordColor}) {
     return GameColors(

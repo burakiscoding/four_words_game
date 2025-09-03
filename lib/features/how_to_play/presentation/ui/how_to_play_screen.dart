@@ -12,21 +12,21 @@ class HowToPlayScreen extends StatefulWidget {
 }
 
 class _HowToPlayScreenState extends State<HowToPlayScreen> {
-  final Word firstGuess = [
+  final Word firstGuess = const [
     Letter(value: "T", state: LetterState.notInWord),
     Letter(value: "A", state: LetterState.posWrong),
     Letter(value: "B", state: LetterState.notInWord),
     Letter(value: "L", state: LetterState.posWrong),
     Letter(value: "E", state: LetterState.posCorrect),
   ];
-  final Word secondGuess = [
+  final Word secondGuess = const [
     Letter(value: "F", state: LetterState.posCorrect),
     Letter(value: "L", state: LetterState.posCorrect),
     Letter(value: "A", state: LetterState.posCorrect),
     Letter(value: "S", state: LetterState.notInWord),
     Letter(value: "H", state: LetterState.notInWord),
   ];
-  final Word thirdGuess = [
+  final Word thirdGuess = const [
     Letter(value: "F", state: LetterState.posCorrect),
     Letter(value: "L", state: LetterState.posCorrect),
     Letter(value: "A", state: LetterState.posCorrect),
@@ -38,7 +38,7 @@ class _HowToPlayScreenState extends State<HowToPlayScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("How To Play")),
+      appBar: AppBar(title: const Text("How To Play")),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: SingleChildScrollView(
@@ -51,8 +51,9 @@ class _HowToPlayScreenState extends State<HowToPlayScreen> {
               ),
               _DecoratedBox(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _Text("Keywords: "),
+                    const _Text("Keywords: "),
                     KeywordsView(keywords: keywords),
                   ],
                 ),
@@ -64,26 +65,63 @@ class _HowToPlayScreenState extends State<HowToPlayScreen> {
                   spacing: 4,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        LastWordChar(firstGuess[0]),
-                        _Text(","),
-                        LastWordChar(firstGuess[2]),
-                        _Text(" aren't in the target word at all."),
-                      ],
+                    Text.rich(
+                      style: context.textTheme.bodyLarge,
+                      TextSpan(
+                        children: <InlineSpan>[
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.baseline,
+                            baseline: TextBaseline.alphabetic,
+                            child: LastWordChar(firstGuess[0]),
+                          ),
+                          const TextSpan(text: ','),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.baseline,
+                            baseline: TextBaseline.alphabetic,
+                            child: LastWordChar(firstGuess[2]),
+                          ),
+                          const TextSpan(text: " aren't in the target word at all."),
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: [
-                        LastWordChar(firstGuess[1]),
-                        _Text(","),
-                        LastWordChar(firstGuess[3]),
-                        _Text(" are in the word but in the wrong spot."),
-                      ],
+
+                    Text.rich(
+                      style: context.textTheme.bodyLarge,
+                      TextSpan(
+                        children: <InlineSpan>[
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.baseline,
+                            baseline: TextBaseline.alphabetic,
+                            child: LastWordChar(firstGuess[1]),
+                          ),
+                          const TextSpan(text: ','),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.baseline,
+                            baseline: TextBaseline.alphabetic,
+                            child: LastWordChar(firstGuess[3]),
+                          ),
+                          const TextSpan(text: ' are in the word but in the wrong spot.'),
+                        ],
+                      ),
                     ),
-                    Row(children: [LastWordChar(firstGuess[4]), _Text(" is in the word and in the correct spot.")]),
+
+                    Text.rich(
+                      style: context.textTheme.bodyLarge,
+                      TextSpan(
+                        children: <InlineSpan>[
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.baseline,
+                            baseline: TextBaseline.alphabetic,
+                            child: LastWordChar(firstGuess[4]),
+                          ),
+                          const TextSpan(text: ' is in the word and in the correct spot.'),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
+
               const _Text("Another try to find matching letters in the secret word"),
               LastWordText(secondGuess),
               const _Text("So close"),
@@ -93,6 +131,7 @@ class _HowToPlayScreenState extends State<HowToPlayScreen> {
                 style: context.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 12),
             ],
           ),
         ),

@@ -25,14 +25,14 @@ class AppThemes {
     fontFamily: 'Nunito',
     extensions: <ThemeExtension<dynamic>>[_gameColors],
     cardColor: AppColors.grey,
-    dialogTheme: DialogThemeData(
+    dialogTheme: const DialogThemeData(
       backgroundColor: AppColors.beige,
       contentTextStyle: TextStyle(fontSize: 16, color: AppColors.black, fontFamily: 'Nunito'),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppColors.black,
-        textStyle: TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
+        textStyle: const TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -40,15 +40,15 @@ class AppThemes {
         backgroundColor: AppColors.lightOrange,
         foregroundColor: AppColors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        textStyle: TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
+        textStyle: const TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
       ),
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.beige,
       titleTextStyle: TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
       centerTitle: true,
     ),
-    colorScheme: ColorScheme(
+    colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: AppColors.lightOrange,
       onPrimary: AppColors.black,
@@ -60,7 +60,7 @@ class AppThemes {
       onSurface: AppColors.black,
     ),
 
-    buttonTheme: ButtonThemeData(
+    buttonTheme: const ButtonThemeData(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: AppColors.lightOrange,
@@ -82,14 +82,14 @@ class AppThemes {
     scaffoldBackgroundColor: AppColors.beige,
     fontFamily: 'Nunito',
     extensions: <ThemeExtension<dynamic>>[_gameColors],
-    dialogTheme: DialogThemeData(
+    dialogTheme: const DialogThemeData(
       backgroundColor: AppColors.beige,
       contentTextStyle: TextStyle(fontSize: 16, color: AppColors.black, fontFamily: 'Nunito'),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppColors.black,
-        textStyle: TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
+        textStyle: const TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -97,15 +97,15 @@ class AppThemes {
         backgroundColor: AppColors.lightOrange,
         foregroundColor: AppColors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        textStyle: TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
+        textStyle: const TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
       ),
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.beige,
       titleTextStyle: TextStyle(fontFamily: 'PermanentMarker', color: AppColors.black, fontSize: 22),
       centerTitle: true,
     ),
-    colorScheme: ColorScheme(
+    colorScheme: const ColorScheme(
       brightness: Brightness.dark,
       primary: AppColors.lightOrange,
       onPrimary: AppColors.black,
@@ -117,7 +117,7 @@ class AppThemes {
       onSurface: AppColors.black,
     ),
 
-    buttonTheme: ButtonThemeData(
+    buttonTheme: const ButtonThemeData(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: AppColors.lightOrange,

@@ -5,6 +5,5 @@ import 'package:four_words_game/features/game/domain/entities/word_card_entity.d
 abstract class GameRepository {
   Future<Either<Failure, WordCardEntity>> getNextWord();
   Future<void> setWordCompleted(int id);
-  Future<Either<Failure, List<WordCardEntity>>> getCompletedWords();
   Future<Either<Failure, int>> resetWordCards();
 }

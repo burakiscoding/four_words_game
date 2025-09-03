@@ -6,7 +6,6 @@ import 'package:four_words_game/features/game/data/models/word_card_model.dart';
 abstract class GameLocalDataSource {
   Future<WordCardModel> getNextWord();
   Future<void> setWordCompleted(int id);
-  Future<List<WordCardModel>> getCompletedWords();
   Future<int> resetWordCards();
 }
 
@@ -32,18 +31,6 @@ class GameLocalDataSourceImpl extends GameLocalDataSource {
   Future<void> setWordCompleted(int id) async {
     final db = await _dbClient.db;
     await db.update('word_cards', {'isCompleted': 1}, where: 'id = ?', whereArgs: [id]);
-  }
-
-  @override
-  Future<List<WordCardModel>> getCompletedWords() async {
-    final db = await _dbClient.db;
-    final response = await db.query('word_cards', where: 'isCompleted = ?', whereArgs: [1]);
-
-    if (response.isEmpty) {
-      throw WordNotFoundException();
-    }
-
-    return response.map((e) => WordCardModel.fromMap(e)).toList();
   }
 
   @override

@@ -8,7 +8,7 @@ class WordCardModel {
   final String keywords;
   final int isCompleted;
 
-  WordCardModel({required this.id, required this.word, required this.keywords, required this.isCompleted});
+  const WordCardModel({required this.id, required this.word, required this.keywords, required this.isCompleted});
 
   factory WordCardModel.fromMap(Map<String, dynamic> map) {
     return WordCardModel(

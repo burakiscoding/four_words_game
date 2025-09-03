@@ -17,10 +17,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(gameProvider.notifier).getWordCard();
-    });
   }
 
   @override
@@ -36,25 +32,26 @@ class _GameScreenState extends ConsumerState<GameScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Three Words Game')),
+      appBar: AppBar(title: const Text('Three Words Game')),
       body: SafeArea(
         child: Column(
           children: [
             const SizedBox(height: 16),
             KeywordsView(keywords: state.wordCard.keywords),
-            Spacer(),
+            const Spacer(),
             WordAndLastWordView(
               word: state.word,
               lastWord: state.lastWord,
               isWin: state.isWin,
               remainingSeconds: state.remainingSeconds,
             ),
-            Spacer(),
+            const Spacer(),
             KeyboardView(
               onKeyPressed: ref.read(gameProvider.notifier).updateWord,
               onDeletePressed: ref.read(gameProvider.notifier).deleteWord,
               onEnterPressed: ref.read(gameProvider.notifier).submitWord,
             ),
+            const SizedBox(height: 16),
           ],
         ),
       ),

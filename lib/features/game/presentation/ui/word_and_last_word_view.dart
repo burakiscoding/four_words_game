@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:four_words_game/core/extensions/context_x.dart';
-import 'package:four_words_game/core/theme/app_themes.dart';
 import 'package:four_words_game/features/game/presentation/models/letter.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class WordAndLastWordView extends StatelessWidget {
   final WordString word;
@@ -37,14 +35,10 @@ class LastWordText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Animate(
-      key: ValueKey<String>(word.map((e) => e.value).join('')),
-      effects: [FadeEffect(duration: const Duration(milliseconds: 200))],
-      child: Row(
-        spacing: 16,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: word.map((letter) => LastWordChar(letter)).toList(),
-      ),
+    return Row(
+      spacing: 12,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: word.map((letter) => LastWordChar(letter)).toList(),
     );
   }
 }
@@ -71,7 +65,7 @@ class _WordText extends StatelessWidget {
       );
     } else {
       return Row(
-        spacing: 16,
+        spacing: 12,
         mainAxisAlignment: MainAxisAlignment.center,
         children: word.map((letter) => _WordChar(letter)).toList(),
       );
@@ -87,7 +81,7 @@ class _WordChar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (letter == "") {
-      return _Line();
+      return const _Line();
     }
 
     return SizedBox(
@@ -122,7 +116,7 @@ class LastWordChar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (letter.value == "") {
-      return _Line();
+      return const _Line();
     }
 
     return SizedBox(
@@ -149,7 +143,7 @@ class _Line extends StatelessWidget {
       height: 5,
       decoration: BoxDecoration(
         color: context.colorScheme.onPrimary,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
     );
   }

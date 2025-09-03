@@ -32,11 +32,11 @@ class EndOfGameScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
-                ElevatedButton(onPressed: onPop, child: Text('Back to Menu')),
+                ElevatedButton(onPressed: onPop, child: const Text('Back to Menu')),
               ],
             ),
           ),
-          IgnorePointer(child: HeartParticles()),
+          const IgnorePointer(child: HeartParticles()),
         ],
       ),
     );

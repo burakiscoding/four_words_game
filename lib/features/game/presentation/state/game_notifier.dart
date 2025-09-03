@@ -23,20 +23,20 @@ class GameNotifier extends StateNotifier<GameState> {
        _getNextWordUseCase = getNextWordUseCase,
        _setWordCompletedUseCase = setWordCompletedUseCase,
        _insertHistoryUseCase = insertHistoryUseCase,
-       super(const GameState.initial());
+       super(const GameState.initial()) {
+    _getWordCard();
+  }
 
   Timer? _timer;
 
-  void cancelTimer() {
+  void _cancelTimer() {
     _timer?.cancel();
     _timer = null;
-    print("timer cancelled");
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
-    print("game notifier disposed");
+    _cancelTimer();
     super.dispose();
   }
 
@@ -45,18 +45,17 @@ class GameNotifier extends StateNotifier<GameState> {
       if (state.remainingSeconds > 1) {
         state = state.copyWith(remainingSeconds: state.remainingSeconds - 1);
       } else {
-        cancelTimer();
-        getWordCard();
+        _cancelTimer();
+        _getWordCard();
       }
     });
   }
 
-  Future<void> getWordCard() async {
+  Future<void> _getWordCard() async {
     final result = await _getNextWordUseCase.execute();
 
     result.fold(
       (failure) {
-        // Handle failure
         if (failure is WordNotFoundFailure) {
           state = state.copyWith(isWordsOver: true);
         } else {

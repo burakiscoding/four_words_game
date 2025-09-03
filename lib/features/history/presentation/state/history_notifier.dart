@@ -9,16 +9,18 @@ class HistoryNotifier extends StateNotifier<HistoryState> {
   HistoryNotifier({required GetHistoryUseCase getHistoryUseCase, required ClearProgressUseCase clearProgressUseCase})
     : _getHistoryUseCase = getHistoryUseCase,
       _clearProgressUseCase = clearProgressUseCase,
-      super(const HistoryState.initial());
+      super(const HistoryState.initial()) {
+    _getHistory();
+  }
 
-  Future<void> getHistory() async {
+  Future<void> _getHistory() async {
     final result = await _getHistoryUseCase.execute();
     result.fold((failure) {}, (history) {
       state = state.copyWith(history: history);
     });
   }
 
-  Future<void> clearHistory() async {
+  Future<void> clearProgress() async {
     final result = await _clearProgressUseCase.execute();
     result.fold((failure) {}, (count) {
       state = state.copyWith(history: []);
@@ -26,7 +28,7 @@ class HistoryNotifier extends StateNotifier<HistoryState> {
   }
 }
 
-final historyProvider = StateNotifierProvider<HistoryNotifier, HistoryState>((ref) {
+final historyProvider = StateNotifierProvider.autoDispose<HistoryNotifier, HistoryState>((ref) {
   return HistoryNotifier(
     getHistoryUseCase: ref.watch(getHistoryUseCaseProvider),
     clearProgressUseCase: ref.watch(clearProgressUseCaseProvider),

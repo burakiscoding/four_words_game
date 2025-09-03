@@ -35,6 +35,7 @@ class DbSeedService {
       return;
     }
 
+    // We already have words in db but we want to add more
     final lastWordId = result.last['id'] as int;
     for (final w in wordCards) {
       // Only new words will be inserted
@@ -50,7 +51,7 @@ class WordCardJson {
   final String word;
   final List<String> keywords;
 
-  WordCardJson({required this.id, required this.word, required this.keywords});
+  const WordCardJson({required this.id, required this.word, required this.keywords});
 
   factory WordCardJson.fromMap(Map<String, dynamic> map) {
     return WordCardJson(
