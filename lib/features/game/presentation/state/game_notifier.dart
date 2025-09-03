@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:four_words_game/core/error/failures.dart';
 import 'package:four_words_game/features/game/domain/usecases/get_next_word_use_case.dart';
 import 'package:four_words_game/features/game/domain/usecases/set_word_completed_use_case.dart';
+import 'package:four_words_game/features/game/presentation/helpers/countdown_helper.dart';
 import 'package:four_words_game/features/game/presentation/helpers/game_helper.dart';
 import 'package:four_words_game/features/game/presentation/state/game_state.dart';
 import 'package:four_words_game/features/history/domain/usecases/insert_history_use_case.dart';
@@ -13,16 +14,19 @@ class GameNotifier extends StateNotifier<GameState> {
   final GetNextWordUseCase _getNextWordUseCase;
   final SetWordCompletedUseCase _setWordCompletedUseCase;
   final InsertHistoryUseCase _insertHistoryUseCase;
+  final CountdownHelper _countdownHelper;
 
   GameNotifier({
     required GameHelper gameHelper,
     required GetNextWordUseCase getNextWordUseCase,
     required SetWordCompletedUseCase setWordCompletedUseCase,
     required InsertHistoryUseCase insertHistoryUseCase,
+    required CountdownHelper countdownHelper,
   }) : _gameHelper = gameHelper,
        _getNextWordUseCase = getNextWordUseCase,
        _setWordCompletedUseCase = setWordCompletedUseCase,
        _insertHistoryUseCase = insertHistoryUseCase,
+       _countdownHelper = countdownHelper,
        super(const GameState.initial()) {
     _getWordCard();
   }
@@ -57,9 +61,9 @@ class GameNotifier extends StateNotifier<GameState> {
     result.fold(
       (failure) {
         if (failure is WordNotFoundFailure) {
-          state = state.copyWith(isWordsOver: true);
+          state = state.copyWith(isWordsOver: true, isLoading: false);
         } else {
-          state = state.copyWith(errorMessage: failure.message);
+          state = state.copyWith(errorMessage: failure.message, isLoading: false);
         }
       },
       (wordCard) {
@@ -73,12 +77,18 @@ class GameNotifier extends StateNotifier<GameState> {
           isWin: false,
           remainingSeconds: 5,
           errorMessage: null,
+          index: 0,
+          isLoading: false,
         );
       },
     );
   }
 
   void updateWord(String s) {
+    if (state.isLoading) {
+      return;
+    }
+
     final word = state.word;
     final index = state.index;
 
@@ -89,6 +99,10 @@ class GameNotifier extends StateNotifier<GameState> {
   }
 
   void deleteWord() {
+    if (state.isLoading) {
+      return;
+    }
+
     final word = state.word;
     final index = state.index;
 
@@ -99,14 +113,14 @@ class GameNotifier extends StateNotifier<GameState> {
   }
 
   void submitWord() async {
-    if (!_gameHelper.canSubmit(state.word)) {
+    if (!_gameHelper.canSubmit(state.word) || state.isLoading) {
       return;
     }
     // Check if user won
     if (_gameHelper.isWordStringCorrect(state.word, state.wordCard.word)) {
       final lastWord = _gameHelper.createCorrectWord(state.wordCard.word);
       final emptyWord = _gameHelper.createEmptyWordString(state.wordCard.word.length);
-      state = state.copyWith(word: emptyWord, lastWord: lastWord, index: 0, isWin: true);
+      state = state.copyWith(word: emptyWord, lastWord: lastWord, index: 0, isWin: true, isLoading: true);
 
       // 5 seconds before the next word
       _startTimer();
@@ -140,5 +154,6 @@ final gameProvider = StateNotifierProvider.autoDispose<GameNotifier, GameState>(
     getNextWordUseCase: ref.watch(getNextWordUseCaseProvider),
     setWordCompletedUseCase: ref.watch(setWordCompletedProvider),
     insertHistoryUseCase: ref.watch(insertHistoryUseCaseProvider),
+    countdownHelper: ref.watch(countdownHelperProvider(5)),
   );
 });
