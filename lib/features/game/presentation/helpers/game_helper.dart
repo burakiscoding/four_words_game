@@ -3,8 +3,8 @@ import 'package:four_words_game/features/game/presentation/models/letter.dart';
 
 class GameHelper {
   final List<String> _attempts = [];
-  List<String> get attempts => _attempts;
-  final int maxAttempt = 10;
+  // We only save last 10 attempts!
+  List<String> get attempts => _attempts.reversed.take(10).toList().reversed.toList();
 
   void addAttempt(String word) {
     _attempts.add(word);
@@ -15,7 +15,7 @@ class GameHelper {
   }
 
   Word createEmptyWord(int n) {
-    return List.filled(n, Letter.empty());
+    return List.filled(n, const Letter.empty());
   }
 
   WordString createEmptyWordString(int n) {
@@ -79,6 +79,6 @@ class GameHelper {
   }
 }
 
-final gameHelperProvider = Provider((ref) {
+final gameHelperProvider = Provider.autoDispose((ref) {
   return GameHelper();
 });

@@ -1,3 +1,4 @@
+/// Table: history
 class HistoryModel {
   final int? id;
   final int wordId;

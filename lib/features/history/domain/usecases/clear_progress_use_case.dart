@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:four_words_game/core/db/db_seed_service.dart';
 import 'package:four_words_game/core/error/failures.dart';
 import 'package:four_words_game/core/models/either.dart';
 import 'package:four_words_game/features/game/data/repositories/game_repository_impl.dart';

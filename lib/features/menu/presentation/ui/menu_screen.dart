@@ -16,48 +16,46 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: Text(
-                    "THREE WORDS\nGAME",
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(fontFamily: 'PermanentMarker'),
-                    textAlign: TextAlign.center,
-                  ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: Text(
+                  "THREE WORDS\nGAME",
+                  style: Theme.of(context).textTheme.displaySmall?.copyWith(fontFamily: 'PermanentMarker'),
+                  textAlign: TextAlign.center,
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    MenuButton(onPressed: _pushGameScreen, text: 'PLAY'),
-                    const SizedBox(height: 24),
-                    MenuButton(onPressed: _pushHistoryScreen, text: 'HISTORY'),
-                    const SizedBox(height: 24),
-                    MenuButton(onPressed: _pushHowToPlayScreen, text: 'HOW TO PLAY?'),
-                    const SizedBox(height: 24),
-                  ],
-                ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  MenuButton(onPressed: _pushGameScreen, text: 'PLAY'),
+                  const SizedBox(height: 24),
+                  MenuButton(onPressed: _pushHistoryScreen, text: 'HISTORY'),
+                  const SizedBox(height: 24),
+                  MenuButton(onPressed: _pushHowToPlayScreen, text: 'HOW TO PLAY?'),
+                  const SizedBox(height: 24),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   void _pushGameScreen() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => GameScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const GameScreen()));
   }
 
   void _pushHistoryScreen() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HistoryScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const HistoryScreen()));
   }
 
   void _pushHowToPlayScreen() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => HowToPlayScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const HowToPlayScreen()));
   }
 }

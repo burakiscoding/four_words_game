@@ -57,11 +57,11 @@ class _KeyboardLetterView extends StatelessWidget {
       onTap: () => _onPressed?.call(letter),
       highlightColor: AppColors.lightOrange,
       splashColor: AppColors.lightOrange,
-      borderRadius: BorderRadius.all(Radius.circular(4)),
+      borderRadius: const BorderRadius.all(Radius.circular(4)),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: context.colorScheme.onPrimary),
-          borderRadius: BorderRadius.all(Radius.circular(4)),
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
         width: width,
         height: height,

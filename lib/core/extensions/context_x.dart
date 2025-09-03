@@ -6,5 +6,4 @@ extension ContextX on BuildContext {
   TextTheme get textTheme => theme.textTheme;
   ColorScheme get colorScheme => theme.colorScheme;
   GameColors get gameColors => theme.extension<GameColors>()!;
-  Size get size => MediaQuery.of(this).size;
 }

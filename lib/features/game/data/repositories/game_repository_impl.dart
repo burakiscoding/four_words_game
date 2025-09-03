@@ -18,21 +18,9 @@ class GameRepositoryImpl extends GameRepository {
       final response = await _localDataSource.getNextWord();
       return Right(response.toEntity());
     } on WordNotFoundException catch (_) {
-      return Left(const WordNotFoundFailure());
+      return const Left(WordNotFoundFailure());
     } catch (e) {
-      return Left(const UnknownFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<WordCardEntity>>> getCompletedWords() async {
-    try {
-      final response = await _localDataSource.getCompletedWords();
-      return Right(response.map((e) => e.toEntity()).toList());
-    } on WordNotFoundException catch (_) {
-      return Left(const WordNotFoundFailure());
-    } catch (e) {
-      return Left(const UnknownFailure());
+      return const Left(DbFailure());
     }
   }
 
@@ -49,7 +37,7 @@ class GameRepositoryImpl extends GameRepository {
       final result = await _localDataSource.resetWordCards();
       return Right(result);
     } catch (_) {
-      return Left(const UnknownFailure());
+      return const Left(DbFailure());
     }
   }
 }

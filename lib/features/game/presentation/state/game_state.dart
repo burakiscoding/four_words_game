@@ -48,7 +48,7 @@ class GameState {
     this.isLoading = false,
     this.errorMessage,
     this.isWin = false,
-    this.remainingSeconds = 3,
+    this.remainingSeconds = 5,
     this.isWordsOver = false,
   });
 

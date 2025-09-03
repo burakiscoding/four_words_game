@@ -20,7 +20,7 @@ class HistoryRepositoryImpl extends HistoryRepository {
       final result = await _localDataSource.getHistory();
       return Right(result.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return Left(UnknownFailure());
+      return const Left(DbFailure());
     }
   }
 
@@ -38,7 +38,7 @@ class HistoryRepositoryImpl extends HistoryRepository {
       final result = await _localDataSource.clearHistory();
       return Right(result);
     } catch (_) {
-      return Left(const UnknownFailure());
+      return const Left(DbFailure());
     }
   }
 }

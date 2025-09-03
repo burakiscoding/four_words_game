@@ -8,7 +8,7 @@ import 'package:riverpod/riverpod.dart';
 class GetHistoryUseCase {
   final HistoryRepository _historyRepository;
 
-  GetHistoryUseCase({required HistoryRepository historyRepository}) : _historyRepository = historyRepository;
+  const GetHistoryUseCase({required HistoryRepository historyRepository}) : _historyRepository = historyRepository;
 
   Future<Either<Failure, List<HistoryWordEntity>>> execute() async {
     return await _historyRepository.getHistory();
