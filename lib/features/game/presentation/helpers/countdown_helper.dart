@@ -2,15 +2,20 @@ import 'dart:async';
 
 import 'package:riverpod/riverpod.dart';
 
+/// A helper class that manages a countdown timer and async tasks together
+/// Emits countdown values through [Stream]
+/// Run an async function in parallel with the countdown
+/// Designed to be used with Riverpod but works standalone as well
+/// The main purpose of this class is to run async functions while performing a countdown
 class CountdownHelper {
   final int seconds;
   Timer? _timer;
-  final _controller = StreamController<int>();
+  final _controller = StreamController<int>.broadcast();
   Stream<int> get stream => _controller.stream;
 
   CountdownHelper({required this.seconds});
 
-  Future<void> start(Future<void> Function() fn) async {
+  Future<T> start<T>(Future<T> Function() fn) async {
     int count = seconds;
     _controller.add(count);
 
@@ -24,7 +29,8 @@ class CountdownHelper {
       }
     });
 
-    await Future.wait([Future.delayed(Duration(seconds: seconds)), fn()]);
+    final results = await Future.wait([Future.delayed(Duration(seconds: seconds)), fn()]);
+    return results[1] as T;
   }
 
   void dispose() {

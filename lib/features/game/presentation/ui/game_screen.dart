@@ -43,7 +43,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
               word: state.word,
               lastWord: state.lastWord,
               isWin: state.isWin,
-              remainingSeconds: state.remainingSeconds,
+              remainingSeconds: ref.read(gameProvider.notifier).countdownStream,
             ),
             const Spacer(),
             KeyboardView(
