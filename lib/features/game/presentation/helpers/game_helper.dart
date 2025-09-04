@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:four_words_game/features/game/presentation/models/letter.dart';
 
+/// A helper class that manages the game logic
 class GameHelper {
   final List<String> _attempts = [];
   // We only save last 10 attempts!

@@ -6,7 +6,7 @@ class WordAndLastWordView extends StatelessWidget {
   final WordString word;
   final Word lastWord;
   final bool isWin;
-  final int remainingSeconds;
+  final Stream<int> remainingSeconds;
 
   const WordAndLastWordView({
     super.key,
@@ -46,7 +46,7 @@ class LastWordText extends StatelessWidget {
 class _WordText extends StatelessWidget {
   final WordString word;
   final bool isWin;
-  final int remaniningSeconds;
+  final Stream<int> remaniningSeconds;
 
   const _WordText(this.word, this.isWin, this.remaniningSeconds);
 
@@ -60,7 +60,13 @@ class _WordText extends StatelessWidget {
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, letterSpacing: 2),
             textAlign: TextAlign.center,
           ),
-          Text("Next word in $remaniningSeconds", style: context.textTheme.titleSmall),
+          StreamBuilder(
+            stream: remaniningSeconds,
+            initialData: 5,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+              return Text("Next word in ${snapshot.data ?? 1}", style: context.textTheme.titleSmall);
+            },
+          ),
         ],
       );
     } else {

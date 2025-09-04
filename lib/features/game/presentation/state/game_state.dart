@@ -22,9 +22,6 @@ class GameState {
   /// Indicates whether the user has won the game
   final bool isWin;
 
-  /// Seconds before the next word
-  final int remainingSeconds;
-
   /// Returns true if all words in db are completed
   final bool isWordsOver;
 
@@ -36,7 +33,6 @@ class GameState {
     this.isLoading = false,
     this.errorMessage,
     this.isWin = false,
-    this.remainingSeconds = 3,
     this.isWordsOver = false,
   });
 
@@ -48,7 +44,6 @@ class GameState {
     this.isLoading = false,
     this.errorMessage,
     this.isWin = false,
-    this.remainingSeconds = 5,
     this.isWordsOver = false,
   });
 
@@ -60,7 +55,6 @@ class GameState {
     bool? isLoading,
     String? errorMessage,
     bool? isWin,
-    int? remainingSeconds,
     bool? isWordsOver,
   }) {
     return GameState(
@@ -71,7 +65,6 @@ class GameState {
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
       isWin: isWin ?? this.isWin,
-      remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       isWordsOver: isWordsOver ?? this.isWordsOver,
     );
   }

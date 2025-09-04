@@ -6,27 +6,27 @@
   },
   {
     "id": 2,
-    "word": "HOME",
-    "keywords": ["House", "Family", "Comfort"]
-  },
-  {
-    "id": 3,
     "word": "OCEAN",
     "keywords": ["Water", "Wave", "Beach"]
   },
   {
-    "id": 4,
+    "id": 3,
     "word": "WINDOW",
     "keywords": ["Glass", "Curtain", "Transparent"]
   },
   {
-    "id": 5,
+    "id": 4,
     "word": "ACCOUNT",
     "keywords": ["Credentials", "Registration", "Password"]
   },
   {
-    "id": 6,
+    "id": 5,
     "word": "COMPUTER",
     "keywords": ["Keyboard", "Mouse", "Screen"]
+  },
+  {
+    "id": 6,
+    "word": "GAME",
+    "keywords": ["Fun", "Video", "Computer"]
   }
 ]
