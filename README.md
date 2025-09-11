@@ -10,10 +10,10 @@ Mobile word game built with Flutter. Players try to find the secret word using k
 - Firebase Crashlytics (error monitoring)
 
 ## Screenshots
-<img src="screenshots/menu.png" alt="Menu screen" width="300"/>
-<img src="screenshots/game.png" alt="Game screen" width="300"/>
-<img src="screenshots/how-to-play.png" alt="How to play screen" width="300"/>
-<iframe src="https://www.youtube.com/shorts/f-VAtmdAypg" width="300" frameborder="0" allowfullscreen></iframe>
+<img src="screenshots/menu.png" alt="Menu screen" width="300">
+<img src="screenshots/game.png" alt="Game screen" width="300">
+<img src="screenshots/how-to-play.png" alt="How to play screen" width="300">
+[Winner Screen](https://www.youtube.com/shorts/f-VAtmdAypg)
 
 ## DB tables
 
