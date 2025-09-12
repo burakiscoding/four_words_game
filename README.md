@@ -10,10 +10,12 @@ Mobile word game built with Flutter. Players try to find the secret word using k
 - Firebase Crashlytics (error monitoring)
 
 ## Screenshots
-<img src="screenshots/menu.png" alt="Menu screen" width="300">
-<img src="screenshots/game.png" alt="Game screen" width="300">
-<img src="screenshots/how-to-play.png" alt="How to play screen" width="300">
-[Winner Screen](https://www.youtube.com/shorts/f-VAtmdAypg)
+<br>
+<img src="screenshots/menu.png" alt="Menu screen" width="200">
+<img src="screenshots/game.png" alt="Game screen" width="200">
+<img src="screenshots/how-to-play.png" alt="How to play screen" width="200">
+<br>
+[Winner Screen Video](https://www.youtube.com/shorts/f-VAtmdAypg)
 
 ## DB tables
 
@@ -26,9 +28,11 @@ Mobile word game built with Flutter. Players try to find the secret word using k
 | id: int | wordId: int | attempts: String |
 
 ## Developer's note
+
 It was fun to build this game, especially the game logic. I implemented features in accordance with clean architecture but sometimes I got bored. Because there are many abstraction layers in this architecture. Sometimes it's useful but we often write code thinking about the future, but that future never comes.
 
-## How to install?
+## How to install?
+
 Clone the repo
 ```
 git clone https://github.com/burakiscoding/flutter_chat_app.git
@@ -59,7 +63,7 @@ if err != nil {
 ```
 
 ## File structure
-
+```
 lib
 ├── core
 │   ├── db
@@ -88,3 +92,4 @@ lib
 │   └── menu
 ├── firebase_options.dart
 └── main.dart
+```
