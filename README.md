@@ -14,8 +14,9 @@ Mobile word game built with Flutter. Players try to find the secret word using k
 <img src="screenshots/menu.png" alt="Menu screen" width="200">
 <img src="screenshots/game.png" alt="Game screen" width="200">
 <img src="screenshots/how-to-play.png" alt="How to play screen" width="200">
+<img src="screenshots/win.gif" alt="How to play screen" width="200">
 <br>
-[Winner Screen Video](https://www.youtube.com/shorts/f-VAtmdAypg)
+[Winner Screen Video](screenshots/win.gif)(https://www.youtube.com/shorts/f-VAtmdAypg)
 
 ## DB tables
 
