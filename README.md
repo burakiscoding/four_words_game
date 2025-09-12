@@ -11,12 +11,12 @@ Mobile word game built with Flutter. Players try to find the secret word using k
 
 ## Screenshots
 <br>
-<img src="screenshots/menu.png" alt="Menu screen" width="200">
-<img src="screenshots/game.png" alt="Game screen" width="200">
-<img src="screenshots/how-to-play.png" alt="How to play screen" width="200">
-<img src="screenshots/win.gif" alt="How to play screen" width="200">
+<img src="screenshots/menu.png" alt="Menu screen" width="200"/>
+<img src="screenshots/game.png" alt="Game screen" width="200"/>
+<img src="screenshots/how-to-play.png" alt="How to play screen" width="200"/>
+<img src="screenshots/win.gif" alt="How to play screen" width="200"/>
 <br>
-[!Winner Screen Video](https://www.youtube.com/shorts/f-VAtmdAypg)
+[Winner Screen Video](https://www.youtube.com/shorts/f-VAtmdAypg)
 
 ## DB tables
 
@@ -58,6 +58,7 @@ flutter run
 - I could create a pdf file or a website to show words and answers. I think it would be useful for the players who need help.
 - I could use a different error handling method. I used [Result] type but I could use Golang style error handling. Like this:
 ```
+final (data, err) = await someService.getData();
 if err != nil {
 
 }
